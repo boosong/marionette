@@ -1,0 +1,157 @@
+#include <Servo.h>
+// Wheel1, 93 is stop angle, 180 is counter-clockwise max, 0 is clockwise max
+//Wheel2 Wheel4 93 is stop angle
+//WHeel3 94 is stop angle
+Servo Wheel1;
+Servo Wheel2;
+Servo Wheel3;
+Servo Wheel4;
+//pushbutton pin
+const int blueButton = 2;
+const int redButton = 3;
+const int yellowButton = 5;
+const int blackButton = 6;
+
+ int buttonState1;
+ int lastButtonState1 = LOW;
+ int buttonState2;
+ int lastButtonState2 = LOW;
+ int buttonState3;
+ int lastButtonState3 = LOW;
+ int buttonState4;
+ int lastButtonState4 = LOW;
+
+ boolean wheel1dir = false;
+ boolean wheel2dir = false;
+ boolean wheel3dir = false;
+ boolean wheel4dir = false;
+ unsigned long newTimer1 = 0;
+ unsigned long newTimer2 = 0;
+ unsigned long newTimer3 = 0;
+ unsigned long newTimer4 = 0;
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Wheel1.attach(12);
+  Wheel2.attach(11);
+  Wheel3.attach(10);
+  Wheel4.attach(9);
+
+  pinMode(blueButton, INPUT);
+  pinMode(redButton, INPUT);
+  pinMode(yellowButton, INPUT);
+  pinMode(blackButton, INPUT);
+
+ 
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ 
+  
+  buttonState1 = digitalRead(blueButton);
+  buttonState2 = digitalRead(redButton);
+  buttonState3 = digitalRead(yellowButton);
+  buttonState4 = digitalRead(blackButton);
+
+ 
+
+//  
+//Wheel1 button control
+  
+    if (buttonState1 == HIGH){
+      //Wheel1.write(0);
+      if(buttonState1 != lastButtonState1){
+        unsigned long newTimer1 = millis();
+        lastButtonState1 = HIGH;
+      }
+      if(millis()-newTimer1 >=500){
+          //Wheel1.write(180);
+          newTimer1 = millis();
+          wheel1dir = !wheel1dir;
+      }
+      if(wheel1dir){
+        Wheel1.write(0);
+      }
+      else{
+        Wheel1.write(180);
+      }
+    }
+    
+    else if( buttonState1 ==LOW){
+      Wheel1.write(93);
+      lastButtonState1 = LOW;
+  }
+//Wheel2 button control
+     if(buttonState2 == HIGH){
+      if(buttonState2 != lastButtonState2){
+        unsigned long newTimer2 = millis();
+        lastButtonState2 = HIGH;
+      }
+      if(millis()-newTimer2 >=500){
+          newTimer2 = millis();
+          wheel2dir = !wheel2dir;
+      }
+      if(wheel2dir){
+        Wheel2.write(0);
+      }
+      else{
+        Wheel2.write(180);
+      }
+    }
+    
+    else if( buttonState2 ==LOW){
+      Wheel2.write(93);
+      lastButtonState2 = LOW;
+  }
+  //Wheel3 button control
+ if(buttonState3 == HIGH){
+      if(buttonState3 != lastButtonState3){
+        unsigned long newTimer3 = millis();
+        lastButtonState3 = HIGH;
+      }
+      if(millis()-newTimer3 >=500){
+          newTimer3 = millis();
+          wheel3dir = !wheel3dir;
+      }
+      if(wheel3dir){
+        Wheel3.write(0);
+      }
+      else{
+        Wheel3.write(180);
+      }
+    }
+    
+    else if( buttonState3 ==LOW){
+      Wheel3.write(94);
+      lastButtonState3 = LOW;
+  }
+  //Wheel4 button control
+    if(buttonState4 == HIGH){
+      if(buttonState4 != lastButtonState4){
+        unsigned long newTimer4 = millis();
+        lastButtonState4 = HIGH;
+      }
+      if(millis()-newTimer4 >=500){
+          newTimer4 = millis();
+          wheel4dir = !wheel4dir;
+      }
+      if(wheel4dir){
+        Wheel4.write(0);
+      }
+      else{
+        Wheel4.write(180);
+      }
+    }
+    
+    else if( buttonState4 ==LOW){
+      Wheel4.write(93);
+      lastButtonState4 = LOW;
+  }
+
+}
+ 
+  
