@@ -1,0 +1,47 @@
+#include <Servo.h>
+// Wheel1, 94 is stop angle, 180 is counter-clockwise max, 0 is clockwise max
+Servo Wheel;
+Servo Wheel2;
+//pushbutton pin
+const int myButton = 2;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Wheel.attach(12);
+  Wheel2.attach(11);
+  pinMode(myButton, INPUT);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int buttonState;
+  int lastButtonState = LOW;
+  buttonState = digitalRead(myButton);
+//  
+
+  if (buttonState == HIGH && buttonState != lastButtonState){
+    
+    Wheel.write(0);
+    Wheel2.write(0);
+    delay(1000);
+//    Wheel.write(94);
+//    delay(1000);
+    Wheel.write(180);
+    Wheel2.write(180);
+    delay(1000);
+    buttonState = lastButtonState;
+    //delay(1000);
+    
+  } 
+    else{
+    Wheel.write(94);
+    Wheel2.write(93);
+//    delay(3000);
+  }
+
+  
+  }
+ 
+  
